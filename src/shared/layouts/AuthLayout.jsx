@@ -1,8 +1,9 @@
 import { Outlet } from "react-router-dom";
 import authBg from "@/assets/images/bg-1.png";
-import { Input, Button } from "@/shared"
-// import DeleteCounter from "../components/DeleteCounter";
+import { Input, Button } from "@/shared";
 import DeleteCounter2 from "../components/DeleteCounter2";
+import CounterEffect from "../components/CounterEffect";
+// import EffectoDemo from "../components/EffectoDemo"; 
 
 export default function AuthLayout() {
   return (
@@ -21,64 +22,72 @@ export default function AuthLayout() {
             type="text"
             placeholder="Escribe tu nombre"
             htmlFor="user-name"
-            variant = "secundary"
-            size = "md"
-            />
-            <Input
+            variant="secundary"
+            size="md"
+          />
+          <Input
             label="Correo"
             type="email"
             placeholder="Escribe tu correo"
             htmlFor="user-email"
-            />
-            <Input
+          />
+          <Input
             label="Telefono"
             type="tel"
             placeholder="Escribe tu numero de telefono"
             htmlFor="user-phone"
-            />
-            <Input
+          />
+          <Input
             label="Borrar tipo de documento"
             type="text"
             placeholder="Escribe tu nombre"
             htmlFor="name"
-            />
-            <Input
+          />
+          <Input
             label="Documento"
             type="text"
             placeholder="Escribe tu numero de document"
             htmlFor="user-document-number"
-            />
-                {/* Actions */}
-            
-            <div className="flex gap-6 items-center">
-              <Button
-                variant="secundary"
-                size="sm"
-                type="submit"
-                OnClick={() => console.log("se oprimio el submit")}
-
-              >
-                Cancelar
-              </Button> 
-              <Button
-                variant="primary"
-                size="md"
-                type="submit"
-                OnClick={() => console.log("se oprimio el submit")}
-
-              >
-                Guardar
-              </Button>
-            </div>{/* Actions */}
-
-            {/* Implemetacion del estado useState */}
-            <div className="mt-10">
-            <DeleteCounter2 />
-          <h1>Hola que tal</h1>
+          />
+          
+          {/* Actions */}
+          <div className="flex gap-6 items-center">
+            <Button
+              variant="secundary"
+              size="sm"
+              type="submit"
+              onClick={() => console.log("se oprimio el submit")}
+            >
+              Cancelar
+            </Button> 
+            <Button
+              variant="primary"
+              size="md"
+              type="submit"
+              onClick={() => console.log("se oprimio el submit")} 
+            >
+              Guardar
+            </Button>
           </div>
-        <Outlet />
-      </main>
-    </div>
-  </>  
+          {/* Actions */}
+
+          {/* Implemetacion del estado useState */}
+          <div className="mt-10">
+            <DeleteCounter2 />
+          </div>
+          {/*<h1>Hola que tal</h1>*/}
+          {/*Implemetacion de useEffect*/}
+
+          {/* <div>
+            <h1>Este es mi useEffect</h1>
+            <div className="mt-12"></div>
+            <EffectoDemo /> 
+          </div> */}
+          <CounterEffect/>
+          
+          <Outlet />
+        </main>
+      </div>
+    </>  
   );
 }
