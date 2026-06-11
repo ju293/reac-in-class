@@ -8,11 +8,17 @@ import { useEffect, useState } from "react";
 
 export default function CounterEffect() {
     const [count, setCount] = useState(0);
-    const [message, setMessage] = useState("el contador no ha cambiado");
+    const [message, setMessage] = useState("");
 
     useEffect(() => {
+        if(`${count}` === 0) {
+            setMessage("El contador no ha cambiado");
+        }
+        else{
         setMessage(`El contador cambió a: ${count}`);
-    }, [count]);
+        }
+
+    }, [count])
 
     return (
         <div>

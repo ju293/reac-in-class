@@ -1,93 +1,130 @@
+import {useState, useEffect } from "react";
+
 import { Outlet } from "react-router-dom";
 import authBg from "@/assets/images/bg-1.png";
-import { Input, Button } from "@/shared";
-import DeleteCounter2 from "../components/DeleteCounter2";
-import CounterEffect from "../components/CounterEffect";
-// import EffectoDemo from "../components/EffectoDemo"; 
+import { 
+   Input,
+   Button, 
+  //  DeleteCounter2, 
+  //  Checkbox,
+   Select} 
+   from "@/shared";
+import {getDocumentTypes} from "../../services/selectService";
+
 
 export default function AuthLayout() {
-  return (
-    <>
-      <div 
-        className="min-h-screen w-full"
-        style={{
-          backgroundImage: `url(${authBg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <main className="mx-auto">
-          <Input
-            label="Nombre"
-            type="text"
-            placeholder="Escribe tu nombre"
-            htmlFor="user-name"
-            variant="secundary"
-            size="md"
-          />
-          <Input
-            label="Correo"
-            type="email"
-            placeholder="Escribe tu correo"
-            htmlFor="user-email"
-          />
-          <Input
-            label="Telefono"
-            type="tel"
-            placeholder="Escribe tu numero de telefono"
-            htmlFor="user-phone"
-          />
-          <Input
-            label="Borrar tipo de documento"
-            type="text"
-            placeholder="Escribe tu nombre"
-            htmlFor="name"
-          />
-          <Input
-            label="Documento"
-            type="text"
-            placeholder="Escribe tu numero de document"
-            htmlFor="user-document-number"
-          />
-          
-          {/* Actions */}
-          <div className="flex gap-6 items-center">
-            <Button
-              variant="secundary"
-              size="sm"
-              type="submit"
-              onClick={() => console.log("se oprimio el submit")}
-            >
-              Cancelar
-            </Button> 
-            <Button
-              variant="primary"
-              size="md"
-              type="submit"
-              onClick={() => console.log("se oprimio el submit")} 
-            >
-              Guardar
-            </Button>
-          </div>
-          {/* Actions */}
 
-          {/* Implemetacion del estado useState */}
-          <div className="mt-10">
-            <DeleteCounter2 />
-          </div>
-          {/*<h1>Hola que tal</h1>*/}
-          {/*Implemetacion de useEffect*/}
 
-          {/* <div>
-            <h1>Este es mi useEffect</h1>
-            <div className="mt-12"></div>
-            <EffectoDemo /> 
-          </div> */}
-          <CounterEffect/>
-          
-          <Outlet />
-        </main>
-      </div>
-    </>  
-  );
+    //Estado para los tipos de documento
+    const[documentTypes, setDocumentTypes] = useState([])
+    
+    // Uso del estado useEffect
+    useEffect(() => {
+        getDocumentTypes().then(setDocumentTypes);
+    },[])
+
+    return (
+        <>
+            <div 
+                className="min-h-screen w-full"
+                style={{
+                    backgroundImage: `url(${authBg})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                }}
+            >
+                <main className="mx-auto">
+                        <Input
+                            label="Nombre"
+                            type="text"
+                            placeholder="Ingrese su nombre"
+                            htmlFor="user-name"
+                            size="md"
+                        />
+                        <Input
+                            label="Correo"
+                            type="email"
+                            placeholder="Ingrese su correo"
+                            htmlFor="user-email"
+                            size="md"
+                        />
+                        <Input
+                            label="Telèfono"
+                            type="tel"
+                            placeholder="Ingrese su nùmmero de telèfono"
+                            htmlFor="user-phone"
+                            size="md"
+                        />
+                        <Input
+                            label="Tipo de documento"
+                            type="text"
+                            placeholder="Ingrese su nombre"
+                            htmlFor="name"
+                            size="md"
+                        />
+                        <Input
+                            label="Documento"
+                            type="text"
+                            placeholder="Ingrese su nùmero de documento"
+                            htmlFor="user-document-number"
+                            size="md"
+                        />
+
+                        <Select
+                            label="Tipos de documento"
+                            name="userDocumentTypes"
+                            htmlFor="userDocumentTypes"
+                            options={documentTypes}
+                        />
+                        
+                        
+                        
+                        {/* Actions */}
+                        <div>
+                            <Button
+                                variant="secondary"
+                                size="sm"
+                                type="button"
+                                onClick={() => console.log("Se oprimio cancelar")}
+                                >
+                                    Cancelar
+                            </Button>
+                            <Button
+                                variant="primary"
+                                size="md"
+                                type="submit"
+                                onClick={() => console.log("Se orpmio el submit")}
+                            >
+                                Guardar
+                            </Button>
+                        </div>{/*Actions*/}
+
+                        { /*Implementacion del estado useState*/}
+                        {/* <div className="mt-10"> 
+                            <h1>Ejemplo sin useState</h1>
+                        <DeleteCounter2/>
+                        </div> */}
+
+                        {/* <EfectoDemo/> */}
+                        
+
+                        {/* <h1>Hola que tal</h1> */}
+
+                        {/* Implementaciòn de useEffect */}
+                        {/* <div className="mt-12">
+                            <h1>Este es mi efecto</h1>
+                            <EffectDemo/>
+                        </div> */}
+
+                        {/* <CounterEffect/> */}
+
+                        
+
+
+
+                    <Outlet />
+                </main>
+            </div>
+        </>
+    );
 }
