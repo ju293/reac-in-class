@@ -1,113 +1,122 @@
 export default function Input({
     label,
-    htmlFor,
+    error,
+    htmlFor, //Es para accesibilidad, la persona que tiene una discapacidad va a escuchar el texto que esta ahi con tab
     type = "text",
     variant="primary",
-    size="sm",
+    size = "sm",
     ...props
 }){
-     const variants = {
-            //Estos valores debem ser con variables
-        primary:`
-                        border-black-950
-                        bg-background
-            `,
-        secundary:`
-                        border-red-950
-                        bg-gray-300
-            `,
-        tertiary:`
-                        border-green-950
-            `,
-     }
-
-     const sizes = {
-        sm:`
-                        h-8
-            `,
-        md:`
-                        h-10
-            `,
-        lg:`
-                        h-12
-            `,
-     }
-
-     
     
-    
+    const variants = {
+            //Estos valores deben ser con variables 
+        primary: `
+            border-brand
+            bg-background
+        `, 
+        secondary: `
+            border-red-300
+            bg-gray-300
+        `, 
+        tertiary: `
+            border-green-950
+        `
+    }
+    const sizes = {
+        
+        sm: `
+            h-8
+            
+        `, 
+        md: `
+            h-10
+        `, 
+        lg: `
+            h-12
+        `
+    }
+
+
     return(
         <div className="w-80">
-
-                {/* Label */}
+                {/*Label */}
             <label 
-                //htmlFor con kebab-case
+                // htmlFor con kebab-case
                 htmlFor={htmlFor}
                 className={`
                     block
                     text-caption
                     mb-1
-                    text-secundary
+                    text-secondary
                     ${
                         size === "sm"
-                        ? "-mb-2"
+                            ? "-mb-2"
                         : size === "md"
-                        ? "mb-0"
-                        : "mb-1"
+                            ? "-mb-0"
+                            : "-mb-1"
                     }
+                    ${error ? "text-red-800" : "text-text-primary"}
                 `}
-                >
+            >
+                
                 {label}
             </label>
 
-            {/* Contenedor del imput */}
-            <div
-            className="
-                relative
-                h-8
-                flex
-                items-center
-                "
-            >
-                {/* Area interactiva invisible (48px) */}
-            <div
-                className="
-                    absolute 
-                    inset-0
-                    "
-                    onMouseDown={(e) => {
-                        e.preventDefault()
+                {/* Contenedor del input */}
+                <div 
 
-                        // Mueve el foco al siguiente nodo hermano en el Dom 
-                        //nextSibbling puedes ser texto: si no es el elemento valido, focus().falta
+                    className="
+                        relative
+                        h-12
+                        flex
+                        items-center
+                    "
+                >
+                {/* Area interactiva invisible (48px)*/}
+                <div
+                    className="
+                        absolute
+                        inset-0
+                    "
+
+                    onMouseDown={(e) => {
+                        e.preventDefault();
+                        //Mueve el foco al siguiente nodo hermano en el DOM
+                        //nextSibling puede ser texto; si no es elemento valido,
                         e.currentTarget.nextSibling.focus();
                     }}
-            
-            />
-                    {/* Input visual */}
-                    <input
-                        id={htmlFor}
-                        type={type}
-                        className={`
+                />
+
+
+                {/* Input visual */}
+                <input
+                    id={htmlFor}
+                    type={type}
+                    className={`
                         relative
                         w-full
-                        h-3
                         rounded-md
                         border
                         px-4
                         text-body
+                        
 
                         focus:outline-none
                         focus:ring-2
-                        focus-:ring-ring
+                        focus:ring-ring
                         focus:ring-brand
                         ${variants[variant]}
                         ${sizes[size]}
+
+                        ${error ? "border-red-800" : "border border-border"}
                     `}
-                    {...props}       
+                        {...props}
                     />
-                    
             </div>
+            {/*Feedback*/}
+            {error && (
+                <p className="text-caption text-red-800 place-self-start">{error}</p>
+            )}
         </div>
-    ) 
+    );
 }
